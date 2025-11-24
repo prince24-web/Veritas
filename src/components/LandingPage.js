@@ -3,10 +3,17 @@
 import { useState, useEffect } from 'react';
 import Orb from '@/components/Orb';
 import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { createClient } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
+
+const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export default function LandingPage({ onGetStarted }) {
     const [textIndex, setTextIndex] = useState(0);
+    const router = useRouter();
     const phrases = [
         "The Bible that understands your feelings and emotions",
         "Talk to the word of God and let it speak to you",
@@ -21,6 +28,21 @@ export default function LandingPage({ onGetStarted }) {
 
         return () => clearInterval(interval);
     }, []);
+
+    const handleGetStarted = async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (session) {
+            router.push('/chat');
+        } else {
+            await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: `${window.location.origin}/chat`,
+                },
+            });
+        }
+    };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-[#FFFAF0] text-[#2C1810] relative overflow-hidden p-4">
@@ -55,16 +77,16 @@ export default function LandingPage({ onGetStarted }) {
                 </div>
 
                 {/* Call to Action */}
-                <Link
-                    href="/chat"
-                    className="group relative px-8 py-4 bg-[#D4AF37] text-white rounded-full text-lg font-semibold shadow-lg hover:shadow-xl hover:bg-[#B8860B] transition-all duration-300 flex items-center gap-3 overflow-hidden mt-4"
+                <button
+                    onClick={handleGetStarted}
+                    className="group relative px-8 py-4 bg-[#D4AF37] text-white rounded-full text-lg font-semibold shadow-lg hover:shadow-xl hover:bg-[#B8860B] transition-all duration-300 flex items-center gap-3 overflow-hidden mt-4 cursor-pointer"
                 >
                     <span className="relative z-10">Get Started</span>
                     <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
 
                     {/* Button Shine Effect */}
                     <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
-                </Link>
+                </button>
 
             </div>
 
@@ -75,4 +97,3 @@ export default function LandingPage({ onGetStarted }) {
         </div>
     );
 }
-

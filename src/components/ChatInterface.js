@@ -166,8 +166,8 @@ export default function ChatInterface() {
                                     )}
 
                                     <div className={`max-w-[85%] rounded-2xl px-6 py-4 text-sm leading-relaxed shadow-sm ${m.role === 'user'
-                                            ? 'bg-[#2C1810] text-[#FFFAF0] rounded-br-none'
-                                            : 'bg-white border border-[#D4AF37]/20 text-[#2C1810] rounded-bl-none'
+                                        ? 'bg-[#2C1810] text-[#FFFAF0] rounded-br-none'
+                                        : 'bg-white border border-[#D4AF37]/20 text-[#2C1810] rounded-bl-none'
                                         }`}>
                                         {/* Markdown Rendering */}
                                         <ReactMarkdown
@@ -178,7 +178,12 @@ export default function ChatInterface() {
                                                 ol: ({ node, ...props }) => <ol className="list-decimal list-inside mb-2" {...props} />,
                                                 li: ({ node, ...props }) => <li className="mb-1" {...props} />,
                                                 strong: ({ node, ...props }) => <strong className="font-semibold text-[#D4AF37]" {...props} />,
-                                                blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-[#D4AF37] pl-4 italic my-2" {...props} />,
+                                                blockquote: ({ node, ...props }) => (
+                                                    <blockquote
+                                                        className="border-l-4 border-[#D4AF37] pl-4 italic my-4 py-2 bg-[#D4AF37]/10 rounded-r-lg text-[#8B4513] font-serif text-lg"
+                                                        {...props}
+                                                    />
+                                                ),
                                             }}
                                         >
                                             {m.content}
