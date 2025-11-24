@@ -126,7 +126,11 @@ export async function POST(req) {
         1. **Direct Answer**: Answer the user's question clearly and concisely based on the Bible.
         2. **Use Context**: Cite the provided verses to support your answer.
         3. **Tone**: Informative, objective, and helpful. No need for excessive emotional validation.
-        4. **Format**: Use Markdown. Bold verse references.
+        4. **Format**: 
+           - Use Markdown.
+           - **CRITICAL**: When quoting a Bible verse, you MUST use the following format with a blockquote:
+             > (Book Chapter:Verse) states, "The actual text of the verse"
+           - Do not put the citation at the end. Put it at the beginning inside the blockquote.
         
         If the context doesn't contain the answer, use your general biblical knowledge.`;
     } else {
@@ -145,7 +149,11 @@ export async function POST(req) {
         2. **Biblical Wisdom**: Use the provided verses to answer.
         3. **Application**: Explain *how* these verses apply to their situation.
         4. **Tone**: Gentle, encouraging, non-judgmental, and hopeful.
-        5. **Format**: Use Markdown. Bold verse references.`;
+        5. **Format**: 
+           - Use Markdown.
+           - **CRITICAL**: When quoting a Bible verse, you MUST use the following format with a blockquote:
+             > (Book Chapter:Verse) states, "The actual text of the verse"
+           - Do not put the citation at the end. Put it at the beginning inside the blockquote.`;
     }
 
     // 7. Stream Response
