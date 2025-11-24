@@ -22,7 +22,7 @@ export const metadata = {
     title: "Veritas",
     description:
       "talk to the word of God and let it speak to you",
-    url: "https://retro-psi-one.vercel.app", // <-- change to your real domain
+    url: "https://veritas-smoky.vercel.app", // <-- change to your real domain
     siteName: "Veritas",
     images: [
       {
